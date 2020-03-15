@@ -1,0 +1,34 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- <div id="app">
+      <h3>{{info}}</h3>
+      <h3 v-html="info"></h3>
+      <script>
+        const app = new Vue({
+          el: '#app',
+          data: {
+            info: '<a href="https://cn.vuejs.org/">Vue.js官网</a>'
+          }
+        })
+      </script>
+    <!--2. v-pre可以用来阻止预编译，有v-pre指令的标签内部的内容不会被编译，会原样输出。 -->
+    <div id="app">
+      <!-- 若不加v-pre指令，直接编译会报错，因为data中没有a和b属性 -->
+      <div v-pre>
+        {{a}} + {{b}}
+      </div>
+    </div>
+    <script>
+      let vm = new Vue({
+        el: '#app', // 根元素或挂载点。
+        data: {}
+      })
+    </script>
+  </body>
+</html>

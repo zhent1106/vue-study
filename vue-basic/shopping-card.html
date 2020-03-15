@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<title>色可创业手机店</title>
+		<style type="text/css">
+			[v-cloak] {
+				display: none;
+			}
+
+			#app {
+				width: 800px;
+				margin: 0 auto;
+			}
+
+			table {
+				width: 100%;
+				border-collapse: collapse;
+				border: 1px solid #BFBFBF;
+			}
+
+			th,
+			td {
+				padding: 8px 16px;
+				text-align: left;
+			}
+
+			th {
+				background: #89abd3;
+				color: rgb(214, 224, 235);
+				font-weight: 600;
+				white-space: nowrap;
+			}
+
+			.button {
+				margin-left: 600px;
+				width: 100px;
+				height: 50px;
+				background-color: #008CBA;
+				border: none;
+
+			}
+
+			.total-text {
+				font-size: 20px;
+				font-weight: bold;
+				line-height: 50px;
+			}
+
+			.img-tz {
+				height: 150px;
+				width: 150px;
+			}
+
+			.input {
+				height: 100px;
+				width: 300px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app" v-cloak>
+			<template v-if="list.length">
+				<table>
+					<thead>
+						<tr>
+							<th>序号</th>
+							<th>图片</th>
+							<th width="70%">商品名称</th>
+							<th>商品单价</th>
+							<th width="70%">购买数量</th>
+						</tr>
+					</thead>
+					<tbody>
+						<h4>商品库</h4>
+						<template v-for="(item, index) in list">
+							<tr>
+								<td style="font-weight: bold;">
+									{{item.id}}
+								</td>
+								<td>
+									<img :src="item.picture" class="img-tz">
+								</td>
+								<td width="250px" style="font-weight: bold;">
+									{{ item.name }}
+								</td>
+								<td style="color: red;">
+									￥{{ item.price }}
+								</td>
+								<td>
+									<button @click="reduce(index)" :disabled="item.count == 1">-</button>
+									<input  size='1' v-model="item.count" style="text-align: center;" />
+									<button @click="add(index)">+</button>
+								</td>
+							</tr>
+						</template>
+					</tbody>
+				</table>
+				<h4>购物车</h4>
+				<button class="button">结算</button>
+				<div id="ended" style="display:block;margin-top: -40px;font-weight: bold;">您已选商品{{totalcount}}件，一共需要支付{{ totalPrices }}元，谢谢光临！❤<div>
+			</template>
+		</div>
+		<script>
+			var app = new Vue({
+				el: '#app',
+				data: {
+					list: [{
+							id: 1,
+							name: 'Apple iPhone 11',
+							price: 5999,
+							count: 1,
+							picture: 'https://img12.360buyimg.com/n7/jfs/t1/103775/36/14271/198058/5e637317E7a72c0cd/404d97a0588467d5.jpg'
+						},
+						{
+							id: 2,
+							name: '小米10 双模5G',
+							price: 4299,
+							count: 1,
+							picture: 'https://img10.360buyimg.com/n1/jfs/t1/96483/14/14741/256103/5e68864dEad1e7cde/d6026785842d2481.jpg'
+						},
+						{
+							id: 3,
+							name: 'Apple iPhone 11 Pro',
+							price: 9999,
+							count: 1,
+							picture: 'https://img12.360buyimg.com/n7/jfs/t1/91660/37/14425/204114/5e63760aE1012a5cf/a8baa0dfba1ffd86.jpg'
+						},
+						{
+							id: 4,
+							name: 'Apple iPhone 11 Pro Max',
+							price: 10899,
+							count: 1,
+							picture: 'https://img13.360buyimg.com/n7/jfs/t1/99953/14/14250/206841/5e637803Edf6adde5/6aec33aa46df82ff.jpg'
+						}
+					],
+					show: false
+				},
+				methods: {
+					reduce: function(index) { //减少商品
+						this.list[index].count--;
+					},
+					add: function(index) { //增加商品
+						this.list[index].count++;
+					}
+				},
+				computed: {
+					//计算总价
+					totalPrices: function() {
+						let totalPrices = 0;
+						this.list.forEach(function(val, index) {
+							totalPrices += parseFloat(val.price * val.count);
+						})
+						return totalPrices.toString().replace(/\B(?=(\d{3})+$)/g, ',');
+					},
+					//计算总商品数量
+					totalcount:function(){
+						let totalcount=0;
+						this.list.forEach(function(val,index){
+							totalcount+= parseFloat(val.count);
+						})
+						return totalcount.toString();
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

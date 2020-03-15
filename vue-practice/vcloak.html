@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>Document</title>
+    <style>
+      [v-cloak] {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 在vue渲染完指定的整个DOM后才进行显示。它必须和CSS样式一起使用， -->
+    <!-- 使用v-cloak指令并为该指令设置display：none的样式，二者结合使用表示在h3的Dom节点渲染完成之前不显示你好啊，{{message}},渲染完成之后显示你好啊，Vue
+           样式的定义要放在head标签里面，否则因为浏览器渲染顺序的差异，有可能不会生效。 -->
+    <!-- 另外要注意：cloak不是clock，cloak英文是斗篷、披风的意思。 -->
+    <div id="app">
+      <h3 v-cloak>你好啊，{{message}}</h3>
+      <script>
+        const app = new Vue({
+          el: '#app',
+          data: {
+            message: 'Vue'
+          }
+        })
+      </script>
+    </div>
+  </body>
+</html>

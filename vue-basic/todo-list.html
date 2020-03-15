@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+      li {
+        list-style-type: none;
+      }
+    </style>
+    <title>todo-list练习</title>
+  </head>
+  <body style="margin: 0 auto;">
+    <div id="app">
+      <ul style="display: flex;">
+        <div style="margin-right: 200px;">
+          <span>已结束：</span>
+          <hr />
+          <li v-for="(item, index) in list" :key="index">
+            <span @click="item.finished = !item.finished" v-if="item.finished" style="color: grey;cursor: pointer;"
+              >{{ item.title }}</span
+            >
+            <button v-show="item.finished" @click="item.finished = !item.finished">重新开始</button>
+          </li>
+        </div>
+
+        <div>
+          <span>进行中：</span>
+          <hr />
+          <button v-show="handle" @click="batch()">批量结束</button>
+          <li v-for="(item, index) in list" :key="index">
+            <div v-if="!item.finished">
+              <input type="checkbox" :id="index" @click="select(index)" />
+              <label :for="index">{{ item.title }}</label>
+
+              <button v-show="!item.finished && !handle" @click="item.finished = !item.finished">结束任务</button>
+            </div>
+          </li>
+        </div>
+      </ul>
+    </div>
+    <script>
+      let vm = new Vue({
+        el: '#app',
+        data: {
+          checkNames: [false, false, false, false, false, false],
+          list: [
+            {
+              title: '前端框架技术',
+              finished: false
+            },
+            {
+              title: '后端框架技术',
+              finished: false
+            },
+            {
+              title: 'Web开发',
+              finished: false
+            },
+            {
+              title: '职场沟通与交流',
+              finished: false
+            },
+            {
+              title: '面向程序高级设计',
+              finished: true
+            },
+            {
+              title: '面向程序设计',
+              finished: true
+            }
+          ],
+          handle: false
+        },
+
+        methods: {
+          batch() {
+            let len = this.checkNames.length
+            for (let i = 0; i < len; i++) {
+              if (this.checkNames[i]) {
+                this.list[i].finished = true
+              }
+            }
+            this.handle = false
+          },
+          select(index) {
+            this.handle = true
+            this.checkNames[index] = true
+          }
+        }
+      })
+    </script>
+  </body>
+</html>

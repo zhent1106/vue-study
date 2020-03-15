@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>第一个Hello程序demo</title>
+  </head>
+  <body>
+    <div id="app">
+      <h2>你好啊，{{message}}</h2>
+    </div>
+    <!-- 引入vue.js -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+      const app = new Vue({
+        // const app是ES6的语法，表示定义一个常量，不允许对该常量进行二次赋值。常量对象的属性还是可以改的，如:app.message = 'world'
+        el: '#app',
+        data: {
+          message: 'VUE'
+        }
+      })
+    </script>
+  </body>
+</html>
